@@ -1,0 +1,48 @@
+<?php
+require 'PHPMailerAutoload.php';
+    $mail = new PHPMailer(true);
+    $mail->IsSMTP;
+    echo 'mail created';
+
+foreach( $cfg as $v ) {
+  define( $v, get_cfg_var( "awardsp.cfg.$v" ) );
+}
+try{    
+    $mail->CharSet = 'UTF-8';
+    $mail->Host = 'mail.studiosunmedia.atwebpages.com';
+    $mail->SMTPDebug = 1;
+    $mail->SMTPSecure = 'tls';   
+    $mail->SMTPAuth = true;
+    $mail->Port = 465;
+    $mail->Username = constant("USER");
+    $mail->Password = constant("PWD");
+    $mail->AddReplyTo('psun03@studiosunmedia.atwebpages.com','Mailer Comic');
+    $mail->AddAddress('psun03@gmail.com','Peter Sun');
+    $mail->SetFrom('psun03@studiosunmedia.atwebpages.com','Mailer Comic');
+    $mail->Subject = 'Comic Mailer - XKCD';
+    $xkcd_url = 'http://xkcd.com/info.0.json';
+    $json = file_get_contents($xkcd_url);
+    $json_data = json_decode($json, true);
+    $email_body = '<html><body>';
+    $email_body .= '<h1>XKCD: '; 
+    $email_body .= $json_data['safe_title'] . '</h1>';
+    $email_body .= '<br/>' . '<img src=\'' . $json_data['img'] . '\'/>';
+    $email_body .= '<br/>' . $json_data['alt'];
+    $email_body .= '<br/><a href=www.xkcd.com>XKCD</a>';
+    $email_body .= '</body></html>';
+
+    $mail->MsgHTML($email_body);
+    if(!$mail->Send()){
+        echo 'Message failed to send';
+    }
+    else {
+        echo 'Message successfully sent';
+    }
+}
+catch (phpmailerException $e) {
+    echo $e->errorMessage();
+    }
+catch (Exception $e) {
+    echo $e->getMessage();
+    }
+?>
