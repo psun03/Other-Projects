@@ -9,16 +9,16 @@ foreach( $cfg as $v ) {
 }
 try{    
     $mail->CharSet = 'UTF-8';
-    $mail->Host = 'mail.studiosunmedia.atwebpages.com';
+    $mail->Host = '';
     $mail->SMTPDebug = 1;
     $mail->SMTPSecure = 'tls';   
     $mail->SMTPAuth = true;
     $mail->Port = 465;
     $mail->Username = constant("USER");
     $mail->Password = constant("PWD");
-    $mail->AddReplyTo('psun03@studiosunmedia.atwebpages.com','Mailer Comic');
-    $mail->AddAddress('psun03@gmail.com','Peter Sun');
-    $mail->SetFrom('psun03@studiosunmedia.atwebpages.com','Mailer Comic');
+    $mail->AddReplyTo('address@sender','Mailer Comic');
+    $mail->AddAddress('address@reciever.com','Receiver');
+    $mail->SetFrom('address@sender','Mailer Comic');
     $mail->Subject = 'Comic Mailer - XKCD';
     $xkcd_url = 'http://xkcd.com/info.0.json';
     $json = file_get_contents($xkcd_url);
