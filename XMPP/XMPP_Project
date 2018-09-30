@@ -1,0 +1,8 @@
+# XMPP Project
+
+Just a project I was working a long time ago. The idea of the project to control a outlet with the X10 Home Automation system. A CM17A FireCracker Computer Interface Module 
+was hooked up to a Raspberry Pi via a usb/serial converter. I wrote a service written python to listen for commands via XMPP. I also wrote
+an android app that sends and listens for responses from the raspberry pi.
+
+## Source Code
+Android Source code: [link](http://studiosunmedia.com/source_code/XMPP_Client.zip)
